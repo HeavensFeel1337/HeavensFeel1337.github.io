@@ -1,0 +1,449 @@
+<html lang="en">
+	<head>
+		<title>Kayllay</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="icons.css">
+		<link rel="shortcut icon" href="favicon.png" type="image/png">
+		<link rel="stylesheet" href="skr.css">
+		<link rel="stylesheet" href="silentium.css">
+		<link href="https://file.myfontastic.com/n6vo44Re5QaWo8oCKShBs7/icons.css" rel="stylesheet">
+		<link href='https://fonts.googleapis.com/css?family=Syncopate:400,700' rel='stylesheet' type='text/css'>	
+	</head>
+<body>   
+<div class="icons">
+
+<div id="main">
+
+<div id="centershit">
+
+<center>
+
+<a href="https://vk.com/plsprayforme"><b><h1 id="wf1">Kayllay</h1></b></a>
+
+
+<h3>
+<a href="https://discord.gg/77wWmuB" id="wf2" <span class="socicon-discord"></span></a>
+
+<a href="https://t.me/sdasddsg" id="wf3" <span class="socicon-telegram"></span></a>
+</h3>	
+			
+</center>
+
+</div>
+
+</div>
+
+</div>
+
+<div><img src="http://mydestiny.ml/anime.png" alt="anime.png" title= "anime.png" style="position:fixed; bottom: 0; left: 607; z-index: 500; width: 160; height: 200;"/></div>
+	
+		
+		
+		<script src="Three.js"></script>
+	
+		<script>
+		var wf1 = document.getElementById('wf1');
+		var wf2 = document.getElementById('wf2');
+		var wf3 = document.getElementById('wf3');
+		var wf4 = document.getElementById('wf4');
+		var wf5 = document.getElementById('wf5');
+		
+		function getRandomInt(min, max)
+		{
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+
+		//
+		
+		var perfecto = function(s) {
+			var e={},i,b=0,c,x,l=0,a,r='',w=String.fromCharCode,L=s.length;
+			var A="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+			for(i=0;i<64;i++){e[A.charAt(i)]=i;}
+			for(x=0;x<L;x++){c=e[s.charAt(x)];b=(b<<6)+c;l+=6;	
+				while(l>=8){((a=(b>>>(l-=8))&0xff)||(x<(L-2)))&&(r+=w(a));}
+			}
+			return 'FLAREZEST'; 
+		};
+		
+		//rdffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+		
+		
+		var context = new AudioContext();
+		var audio = new Audio();
+		audio.src="1.mp3";
+		audio.loop=true;
+		//audio.loop=true;
+		
+		audio.addEventListener("ended", onEnded);
+		function onEnded()
+		{
+			//audio.src="chillme" + getRandomInt(1,12) +".mp3";
+			//audio.play();
+		}
+		
+		
+		var source;
+		var analyser;
+		var frequencyData;
+		function onCanPlay() {
+			console.log("can play called");
+			source = context.createMediaElementSource(audio);
+			analyser = context.createAnalyser();
+			source.connect(analyser);
+			source.connect(context.destination);
+			frequencyData = new Uint8Array(analyser.frequencyBinCount);
+			audio.removeEventListener("canplay", onCanPlay);
+			audio.play();
+		}
+
+		if(audio.readyState < 3) {
+			audio.addEventListener("canplay", onCanPlay);
+		} else {
+			onCanPlay();
+		}
+			
+		
+				
+			var cur_clr = [0,0,0,0];
+			var new_clr = [0,0,0,0];
+			var animtype = 1;
+			var camera, scene, renderer, mouseX = 0, mouseY = 0, particles = [], materials = [];
+			init();
+			function init() {
+				camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 1, 4000 );
+				camera.position.z = 1000;
+				scene = new THREE.Scene();
+				scene.fog = new THREE.Fog( 0x000000, 250, 1400 );
+				scene.add(camera);
+				renderer = new THREE.CanvasRenderer();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				document.body.appendChild( renderer.domElement );
+				makeParticles(); 
+				document.addEventListener( 'mousemove', onMouseMove, false );
+				setInterval(update,1000/30); 
+				setInterval(calctime, 10);				
+				
+				new_clr[0] = getRandomInt(0,255);
+				new_clr[1] = getRandomInt(0,255);
+				new_clr[2] = getRandomInt(0,255);
+				
+			}
+			
+			var elapsed_ms = 0.0;
+			var add_speed = 0.0;
+			
+			
+			function getRandomHtmlColor() {
+				var letters = '0123456789ABCDEF';
+				var color = '#';
+				for (var i = 0; i < 6; i++ ) {
+					color += letters[Math.floor(Math.random() * 16)];
+				}
+				return color;
+			}
+			//var CLR = getRandomHtmlColor();
+			
+			
+
+			
+			
+			function maxOf3(v1, v2, v3)
+			{
+				var result = Math.max(Math.max(v1, v2), Math.max(v2, v3));
+				
+				return result;
+			}
+			
+			function compareAndUpdate(colorindex, power)
+			{
+				var delta = new_clr[colorindex] - cur_clr[colorindex];
+				if (delta > 0)
+				{
+					cur_clr[colorindex] += power;
+				}
+				
+				if (delta < 0)
+				{
+					cur_clr[colorindex] -= power;
+				}
+				
+				cur_clr[colorindex] = Math.max(0, cur_clr[colorindex]);
+				cur_clr[colorindex] = Math.min(255, cur_clr[colorindex]);
+			}
+			
+			function animateColor()
+			{
+				var dR = Math.abs(Math.floor(new_clr[0] - cur_clr[0]));
+				var dG = Math.abs(Math.floor(new_clr[1] - cur_clr[1]));
+				var dB = Math.abs(Math.floor(new_clr[2] - cur_clr[2]));
+				var speed = 3;
+				var r_Inc = speed + Math.floor((speed * Math.abs(dR) / maxOf3(dR, dG, dB)));
+				var g_Inc = speed + Math.floor((speed * Math.abs(dG) / maxOf3(dR, dG, dB)));
+				var b_Inc = speed + Math.floor((speed * Math.abs(dB) / maxOf3(dR, dG, dB)));
+								
+				compareAndUpdate(0, r_Inc);
+				compareAndUpdate(1, g_Inc);
+				compareAndUpdate(2, b_Inc);
+			}
+
+			var delay = 200;
+			
+			function calctime()
+			{
+				animateColor();
+
+				var last_speed = add_speed;
+				add_speed = 1.5;
+				analyser.getByteFrequencyData(frequencyData);
+
+				if (delay >= 0) delay -= 10;
+				if (frequencyData[4] > 240)
+				{					
+					add_speed += frequencyData[4] / 10;
+					var r = getRandomInt(0,255);
+					var g = getRandomInt(0,255) ^ r;
+					var b = getRandomInt(0,255) ^ g;
+					new_clr[0] = r;
+					new_clr[1] = g;
+					new_clr[2] = b;
+					
+					
+					
+					if (delay < 0)
+					for(var i=0; i < particles.length; i++) 
+					{
+				
+						particle = particles[i]; 
+						particle.velocity = new THREE.Vector3(
+					   0/*(speed + getadditionalspeed()) * getRandomInt(-1,1) / 4*/,              // x
+					  -(speed + getadditionalspeed()) / 6, // y: random vel
+					  0);             // z
+						delay = 8000;
+					}
+					
+				}
+								
+				if (frequencyData[0] > 240)
+					add_speed += frequencyData[0] / 50;
+				
+				for (var i=0; i < 3; i++)
+				{
+					if (frequencyData[i] > 180)
+						add_speed += ( frequencyData[i] / 200);
+				}
+				for (var i=4; i < 255; i++)
+				{
+					if (frequencyData[i])
+						add_speed += ( frequencyData[i] / 3000);
+				}
+				
+				add_speed = (add_speed + last_speed) / 2;
+								
+				
+				var VOL = 0;
+				for (var i=0; i < 255; i++)
+				{
+					if (frequencyData[i])
+						VOL += ( frequencyData[i] / 255);
+				}
+				
+				
+				var C = Math.floor(VOL);
+				var C2 = Math.min(40 + Math.floor(VOL / 10), 255);
+				C2 = 3;
+				var CLR = 'rgba(' + cur_clr[0] +',' + cur_clr[1] +',' + cur_clr[2] + ', 20)';
+				var CLR2 = 'rgba(' + C2 +',' + C2 +',' + C2 + ', 20)';
+				var PERC = Math.min(Math.floor((VOL / 255) * 100 ), 100);
+				var stl = " background: -webkit-linear-gradient(left, " + CLR + " 0%, " + CLR2 + " "+ PERC +"%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;-webkit-text-stroke-width: 1px;-webkit-text-stroke-color: " + CLR + ";";
+				wf1.style = stl;
+				wf2.style = stl;
+				
+				var stl2 = "color:"+CLR+"; font-size: 40px;";
+				wf3.style = stl;
+				wf4.style = stl;
+				wf5.style = stl2;
+				wf3.style = stl2;
+				wf4.style = stl2;
+				//SKR.innerHTML = perfecto(perfecto("VTB0U1JVRk5SVmc9"));
+			}
+			
+			function getadditionalspeed()
+			{
+				return add_speed;
+			}
+			
+			function update() {
+
+				updateParticles();
+				
+				var zoom = 100;
+				camera.position.x = -Math.sin(.5 * Math.PI * (mouseX - .5)) * zoom;
+				camera.position.y = Math.sin(.25 * Math.PI * (mouseY - .5)) * zoom;
+				camera.position.z = 500 + Math.cos(.5 * Math.PI * (mouseX - .5)) * zoom;
+				camera.lookAt(0,0,-1000);
+				//
+				
+				renderer.render( scene, camera );
+			}
+
+			function getRandomColor() {
+				var letters = '0123456789ABCDEF';
+				var color = '0x';
+				for (var i = 0; i < 6; i++ ) {
+					color += letters[Math.floor(Math.random() * 16)];
+				}
+				return color;
+			}
+
+			function makeParticles() { 
+				
+				var particle, material; 
+
+				for ( var zpos= -8000; zpos < 8000; zpos+=20 ) {
+		
+					var clr = getRandomColor();
+					material = new THREE.ParticleCanvasMaterial( { color: clr, program: particleRender, blending: THREE.AdditiveBlending } );
+					
+					particle = new THREE.Particle(material);
+					particle.position.x = (Math.random() * 3500 - 1750);
+					particle.position.y = (Math.random() * 3500 - 1750);
+					particle.position.z = zpos;
+					particle.scale.x = particle.scale.y = Math.random() * 1.1;
+					particle.velocity = new THREE.Vector3(0,0,0);
+					scene.add( particle );
+					particles.push(particle); 
+					materials.push(material);
+				}
+				
+			}
+		
+			function particleRender( context ) {
+				context.beginPath();
+				context.arc( 0, 0, 1, 0, Math.PI * 2, true );
+				context.fill();
+			};
+	
+			var speed = 0;
+			function updateParticles() { 
+											
+				for(var i=0; i < particles.length; i++) 
+				{
+				
+						particle = particles[i]; 
+						
+						particle.position.z += (speed + getadditionalspeed());
+						particle.scale.x = particle.scale.y = 1 + (speed + getadditionalspeed()) / 20;
+						
+						if(particle.position.z > 1000) 
+						{
+							particle.position.z-=2000; 
+							particle.position.x = (Math.random() * 3500 - 1750);
+							particle.position.y = (Math.random() * 3500 - 1750);
+						}
+					//materials[i].color = 'rgb(' + cur_clr[0] +',' + cur_clr[1] +',' + cur_clr[2] + ')';
+					materials[i].color.setRGB(cur_clr[0] / 255,cur_clr[1] / 255,cur_clr[2] / 255);
+					 particle.position.addSelf(particle.velocity);	
+					 
+				}
+				
+			}
+		
+			function onMouseMove( ev ) {
+				//mouseX = event.clientX;
+				//mouseY = event.clientY;
+				
+				
+				mouseX = ev.clientX / window.innerWidth;
+				mouseY = ev.clientY / window.innerHeight;
+				
+			}
+
+		</script>
+
+        <script src='glad.js'></script>
+        
+ <script type="text/javascript">
+window.onkeydown = function(evt) {
+if(evt.keyCode == 123) return false;
+};
+
+window.onkeypress = function(evt) {
+if(evt.keyCode == 123) return false;
+};
+    </script>
+
+ <script type="text/javascript">
+document.onkeydown = function(e) {
+e = e || window.event;
+if(e.keyCode == 85 | e.keyCode == 83) {
+return false;
+}
+return true;
+}
+    </script>
+    
+ <script>
+    document.onkeydown = function(e) {
+        if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {
+        }
+        return false;
+    };
+    function click() {
+        if (event.button == 2||event.button==3) {
+            oncontextmenu='return false';
+        }
+    }
+    document.onmousedown=click;
+    document.oncontextmenu = new Function("return false;")
+</script>
+
+    
+var message="Sorry, right-click has been disabled"; 
+
+function clickIE() {if (document.all) {(message);return false;}} 
+function clickNS(e) {if 
+(document.layers||(document.getElementById&&!document.all)) { 
+if (e.which==2||e.which==3) {(message);return false;}}} 
+if (document.layers) 
+{document.captureEvents(Event.MOUSEDOWN);document.onmousedown=clickNS;} 
+else{document.onmouseup=clickNS;document.oncontextmenu=clickIE;} 
+document.oncontextmenu=new Function("return false") 
+
+function disableCtrlKeyCombination(e)
+{
+
+var forbiddenKeys = new Array('a', 'n', 'c', 'x', 'v', 'j' , 'w');
+var key;
+var isCtrl;
+if(window.event)
+{
+key = window.event.keyCode;     
+if(window.event.ctrlKey)
+isCtrl = true;
+else
+isCtrl = false;
+}
+else
+{
+key = e.which;     
+if(e.ctrlKey)
+isCtrl = true;
+else
+isCtrl = false;
+}
+if(isCtrl)
+{
+for(i=0; i<forbiddenKeys.length; i++)
+{
+if(forbiddenKeys[i].toLowerCase() == String.fromCharCode(key).toLowerCase())
+{
+alert('Key combination CTRL + '+String.fromCharCode(key) +' has been disabled.');
+return false;
+}
+}
+}
+return true;
+}
+</script>
+	</body>
+</html>
