@@ -1,0 +1,48 @@
+/* STOP C+P MRAZ */
+body
+{
+
+	background-color: #000000;
+				margin: 0px;
+				overflow: hidden;
+}
+/* STOP C+P MRAZ */
+a 
+{
+	text-decoration: none;
+	font-size: 45px;
+	font-family: 'Syncopate', sans-serif; 
+}
+h3
+{
+	font-size: 45x;
+}
+
+h1 {
+  font-size: 72px;
+  background: -webkit-linear-gradient(#eee, #333);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* STOP C+P MRAZ */
+/* STOP C+P MRAZ */
+#PINHACK
+{
+	color: rgba(2, 153, 253, 0.94);
+}
+/* STOP C+P MRAZ */
+#main 
+{
+	display: table;
+	height: 100%;
+    width: 100%;
+	position: absolute;
+}
+/* STOP C+P MRAZ */
+#centershit
+{
+	display: table-cell;
+    vertical-align: middle;
+}
+/* STOP C+P MRAZ */
