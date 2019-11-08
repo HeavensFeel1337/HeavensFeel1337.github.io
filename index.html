@@ -68,14 +68,14 @@
 		
 		var context = new AudioContext();
 		var audio = new Audio();
-		audio.src="1.mp3";
+		audio.src=getRandomInt(1,7) +".mp3";
 		audio.loop=true;
 		//audio.loop=true;
 		
 		audio.addEventListener("ended", onEnded);
 		function onEnded()
 		{
-			//audio.src="chillme" + getRandomInt(1,12) +".mp3";
+			//audio.src=getRandomInt(1,12) +".mp3";
 			//audio.play();
 		}
 		
