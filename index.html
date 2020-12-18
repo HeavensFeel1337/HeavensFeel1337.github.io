@@ -69,14 +69,14 @@
 		var context = new AudioContext();
 		var audio = new Audio();
 		audio.src=getRandomInt(1,9) +".mp3";
-		audio.loop=true;
+		audio.loop=false;
 		//audio.loop=true;
 		
 		audio.addEventListener("ended", onEnded);
 		function onEnded()
 		{
-			//audio.src=getRandomInt(1,12) +".mp3";
-			//audio.play();
+			audio.src=getRandomInt(1,9) +".mp3";
+			audio.play();
 		}
 		
 		
